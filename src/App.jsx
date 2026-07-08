@@ -1,3 +1,4 @@
+```react
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Globe, Shield, Smartphone, Briefcase, ExternalLink, 
@@ -154,7 +155,7 @@ const PortalCard = ({ title, desc, link, icon: Icon, delay }) => (
         <a 
           href={link} 
           target="_blank" 
-          rel="noopener noreferrer" 
+          rel="noreferrer" 
           className="inline-flex items-center justify-between w-full px-4 py-3 rounded-xl bg-black/[0.03] dark:bg-white/[0.03] hover:bg-black dark:hover:bg-white text-gray-700 dark:text-gray-300 hover:text-white dark:hover:text-black font-medium text-sm transition-all duration-300 border border-black/5 dark:border-white/5 hover:border-black dark:hover:border-white group/btn"
         >
           <span>Open Portal</span>
@@ -210,55 +211,43 @@ export default function App() {
       <div className="min-h-screen flex flex-col relative selection:bg-[#4F46E5]/30">
         
         {/* Top Controls: Links & Theme Toggle */}
-        <div className="absolute top-6 right-6 md:top-8 md:right-8 z-50 flex items-center gap-4 flex-wrap justify-end">
-          
-          {/* Download APK */}
+        <div className="absolute top-6 right-6 md:top-8 md:right-8 z-50 flex items-center gap-2 md:gap-4 flex-wrap justify-end">
           <a 
             href="https://drive.google.com/file/d/1nkNiTgdoP1Swkpo9VChvfD8dd7FB8J8L/view?usp=sharing"
             target="_blank"
-            rel="noopener noreferrer"
-            className="w-12 h-12 rounded-full border border-black/20 dark:border-white/20 flex items-center justify-center bg-transparent transition-all duration-300 hover:border-black/40 dark:hover:border-white/40 hover:bg-black/5 dark:hover:bg-white/5 hover:scale-110 active:scale-95 cursor-pointer"
+            rel="noreferrer"
+            className="p-2.5 md:p-3 rounded-full glass-card hover:scale-110 active:scale-95 transition-all duration-300 text-gray-700 dark:text-gray-300 flex items-center justify-center bg-white/50 dark:bg-black/20 hover:text-black dark:hover:text-white"
             aria-label="Download APK"
             title="Download APK"
           >
-            <Download size={22} className="text-gray-800 dark:text-gray-200" />
+            <Download size={20} />
           </a>
-          
-          {/* View Portfolio */}
           <a 
             href="https://portfolio-drab-beta-95.vercel.app/"
             target="_blank"
-            rel="noopener noreferrer"
-            className="w-12 h-12 rounded-full border border-black/20 dark:border-white/20 flex items-center justify-center bg-transparent transition-all duration-300 hover:border-black/40 dark:hover:border-white/40 hover:bg-black/5 dark:hover:bg-white/5 hover:scale-110 active:scale-95 cursor-pointer"
+            rel="noreferrer"
+            className="p-2.5 md:p-3 rounded-full glass-card hover:scale-110 active:scale-95 transition-all duration-300 text-gray-700 dark:text-gray-300 flex items-center justify-center bg-white/50 dark:bg-black/20 hover:text-black dark:hover:text-white"
             aria-label="View Portfolio"
             title="View Portfolio"
           >
-            <User size={22} className="text-gray-800 dark:text-gray-200" />
+            <User size={20} />
           </a>
-          
-          {/* GitHub */}
           <a 
             href="https://github.com/sanjai0305/traveloop_V2"
             target="_blank"
-            rel="noopener noreferrer"
-            className="w-12 h-12 rounded-full border border-black/20 dark:border-white/20 flex items-center justify-center bg-transparent transition-all duration-300 hover:border-black/40 dark:hover:border-white/40 hover:bg-black/5 dark:hover:bg-white/5 hover:scale-110 active:scale-95 cursor-pointer"
+            rel="noreferrer"
+            className="p-2.5 md:p-3 rounded-full glass-card hover:scale-110 active:scale-95 transition-all duration-300 text-gray-700 dark:text-gray-300 flex items-center justify-center bg-white/50 dark:bg-black/20 hover:text-black dark:hover:text-white"
             aria-label="View on GitHub"
             title="View on GitHub"
           >
-            <Github size={22} className="text-gray-800 dark:text-gray-200" />
+            <Github size={20} />
           </a>
-          
-          {/* Theme Toggle */}
           <button 
             onClick={() => setIsDark(!isDark)}
-            className="w-12 h-12 rounded-full border border-black/20 dark:border-white/20 flex items-center justify-center bg-transparent transition-all duration-300 hover:border-black/40 dark:hover:border-white/40 hover:bg-black/5 dark:hover:bg-white/5 hover:scale-110 active:scale-95 cursor-pointer"
+            className="p-2.5 md:p-3 rounded-full glass-card hover:scale-110 active:scale-95 transition-all duration-300 text-gray-700 dark:text-gray-300 flex items-center justify-center bg-white/50 dark:bg-black/20"
             aria-label="Toggle Theme"
           >
-            {isDark ? (
-              <Sun size={22} className="text-yellow-400" />
-            ) : (
-              <Moon size={22} className="text-indigo-600" />
-            )}
+            {isDark ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} className="text-indigo-600" />}
           </button>
         </div>
 
@@ -324,7 +313,7 @@ export default function App() {
                 TravelLoop V2
               </div>
               <div className="text-sm text-gray-600 dark:text-gray-400 mb-1 transition-colors">
-                Developed by <a href="https://portfolio-drab-beta-95.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-gray-800 dark:text-gray-200 font-semibold hover:text-[#4F46E5] dark:hover:text-[#06B6D4] transition-colors">Sanjai R</a>
+                Developed by <a href="https://portfolio-drab-beta-95.vercel.app/" target="_blank" rel="noreferrer" className="text-gray-800 dark:text-gray-200 font-semibold hover:text-[#4F46E5] dark:hover:text-[#06B6D4] transition-colors">Sanjai R</a>
               </div>
               <div className="text-xs text-gray-500 mb-3 transition-colors">
                 B.E Computer Science and Engineering (AI & ML)
@@ -340,3 +329,7 @@ export default function App() {
     </>
   );
 }
+
+
+```
+        
