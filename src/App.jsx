@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Globe, Shield, Smartphone, Briefcase, ExternalLink, 
-  Sparkles, Sun, Moon, User, Download
+  Sparkles, Sun, Moon, User, Download, X, Loader2, FileText
 } from 'lucide-react';
 
 // --- Custom GitHub Icon (Lucide v1.0 removed brand icons) ---
@@ -108,6 +108,14 @@ const GlobalStyles = () => (
     }
     .animation-delay-2000 { animation-delay: 2s; }
     .animation-delay-4000 { animation-delay: 4s; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .animate-fadeIn {
+      animation: fadeIn 0.2s ease-out forwards;
+    }
   `}} />
 );
 
@@ -187,6 +195,8 @@ const PortalCard = ({ title, desc, link, icon: Icon, delay }) => (
 
 export default function App() {
   const [isDark, setIsDark] = useState(true);
+  const [showResume, setShowResume] = useState(false);
+  const [isPdfLoading, setIsPdfLoading] = useState(true);
 
   // Apply dark mode class to document HTML
   useEffect(() => {
@@ -196,6 +206,40 @@ export default function App() {
       document.documentElement.classList.remove('dark');
     }
   }, [isDark]);
+
+  // Reset loading state when modal opens
+  useEffect(() => {
+    if (showResume) {
+      setIsPdfLoading(true);
+    }
+  }, [showResume]);
+
+  // Handle keyboard accessibility (Escape to close)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setShowResume(false);
+      }
+    };
+    if (showResume) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [showResume]);
+
+  // Lock background scroll when modal is open
+  useEffect(() => {
+    if (showResume) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showResume]);
 
   const portals = [
     {
@@ -244,6 +288,16 @@ export default function App() {
             <Download size={20} className="text-gray-800 dark:text-gray-200" />
           </a>
           
+          {/* Resume */}
+          <button 
+            onClick={() => setShowResume(true)}
+            className="w-11 h-11 md:w-12 md:h-12 rounded-full border border-black/20 dark:border-white/20 flex items-center justify-center bg-transparent transition-all duration-300 hover:border-black/40 dark:hover:border-white/40 hover:bg-black/5 dark:hover:bg-white/5 hover:scale-110 active:scale-95 cursor-pointer"
+            aria-label="Resume"
+            title="Resume"
+          >
+            <FileText size={20} className="text-gray-800 dark:text-gray-200" />
+          </button>
+          
           {/* View Portfolio */}
           <a 
             href="https://portfolio-drab-beta-95.vercel.app/"
@@ -258,9 +312,15 @@ export default function App() {
           
           {/* GitHub */}
           <a 
-            href="https://github.com/sanjai0305/traveloop_V2"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="https://github.com/sanjai0305/travel"
+            onClick={(e) => {
+              e.preventDefault();
+              window.open(
+                "https://github.com/sanjai0305/travel",
+                "_blank",
+                "noopener,noreferrer"
+              );
+            }}
             className="w-11 h-11 md:w-12 md:h-12 rounded-full border border-black/20 dark:border-white/20 flex items-center justify-center bg-transparent transition-all duration-300 hover:border-black/40 dark:hover:border-white/40 hover:bg-black/5 dark:hover:bg-white/5 hover:scale-110 active:scale-95 cursor-pointer"
             aria-label="View on GitHub"
             title="View on GitHub"
@@ -356,8 +416,87 @@ export default function App() {
           </div>
         </footer>
 
+        {/* Resume Viewer Modal */}
+        {showResume && (
+          <div 
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-black/60 backdrop-blur-md transition-opacity duration-300 animate-fadeIn"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
+          >
+            <div className="glass-card w-full max-w-5xl h-[85vh] rounded-2xl flex flex-col overflow-hidden shadow-2xl relative border border-black/10 dark:border-white/10">
+              {/* Modal Header */}
+              <div className="flex items-center justify-between px-6 py-4 border-b border-black/10 dark:border-white/10 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md transition-colors">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-indigo-50 dark:bg-[#4F46E5]/20 text-indigo-600 dark:text-white rounded-lg border border-indigo-100 dark:border-[#4F46E5]/30">
+                    <Briefcase size={18} strokeWidth={2} />
+                  </div>
+                  <h3 id="modal-title" className="text-lg font-bold text-gray-900 dark:text-white tracking-tight transition-colors">
+                    Sanjai R - Resume
+                  </h3>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex items-center gap-2">
+                  {/* Download */}
+                  <a
+                    href="/resume.pdf"
+                    download="Sanjai_R_Resume.pdf"
+                    className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-black/[0.03] dark:bg-white/[0.03] hover:bg-black dark:hover:bg-white text-gray-700 dark:text-gray-300 hover:text-white dark:hover:text-black font-semibold text-xs transition-all duration-300 border border-black/5 dark:border-white/5 hover:border-black dark:hover:border-white"
+                    title="Download Resume"
+                  >
+                    <Download size={14} />
+                    <span className="hidden md:inline">Download</span>
+                  </a>
+
+                  {/* Open in New Tab */}
+                  <a
+                    href="/resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-black/[0.03] dark:bg-white/[0.03] hover:bg-black dark:hover:bg-white text-gray-700 dark:text-gray-300 hover:text-white dark:hover:text-black font-semibold text-xs transition-all duration-300 border border-black/5 dark:border-white/5 hover:border-black dark:hover:border-white"
+                    title="Open in New Tab"
+                  >
+                    <ExternalLink size={14} />
+                    <span className="hidden md:inline">Open in New Tab</span>
+                  </a>
+
+                  {/* Close */}
+                  <button
+                    onClick={() => setShowResume(false)}
+                    className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200"
+                    aria-label="Close viewer"
+                    title="Close"
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Modal Body / PDF Viewer */}
+              <div className="flex-grow w-full relative bg-gray-50/50 dark:bg-gray-950/20 overflow-hidden">
+                {/* Loading Indicator */}
+                {isPdfLoading && (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-white/70 dark:bg-gray-950/70 backdrop-blur-sm z-10 transition-all duration-300">
+                    <Loader2 size={32} className="animate-spin text-indigo-600 dark:text-indigo-400" />
+                    <span className="text-sm font-medium text-gray-600 dark:text-gray-300">Loading Resume...</span>
+                  </div>
+                )}
+
+                {/* PDF Iframe */}
+                <iframe
+                  src="/resume.pdf#view=FitH"
+                  title="Resume PDF Viewer"
+                  className="w-full h-full border-none"
+                  onLoad={() => setIsPdfLoading(false)}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
     </>
   );
-                                   }
+}
   
