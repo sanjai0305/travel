@@ -4,6 +4,11 @@ import {
   Sparkles, Sun, Moon, User, Download, X, Loader2, FileText
 } from 'lucide-react';
 
+import travelerLogo from './assets/traveler portal.jpg';
+import agentLogo from './assets/agent portal.png';
+import driverLogo from './assets/driver portal.png';
+import adminLogo from './assets/admin portal.png';
+
 // --- Custom GitHub Icon (Lucide v1.0 removed brand icons) ---
 const Github = ({ size = 24, className = "", ...props }) => (
   <svg
@@ -158,7 +163,7 @@ const Reveal = ({ children, delay = 0, className = '' }) => {
 
 // --- Main Components ---
 
-const PortalCard = ({ title, desc, link, icon: Icon, delay }) => (
+const PortalCard = ({ title, desc, link, logo, delay }) => (
   <Reveal delay={delay} className="h-full">
     <div className="glass-card rounded-2xl p-8 flex flex-col h-full group relative overflow-hidden">
       
@@ -167,8 +172,12 @@ const PortalCard = ({ title, desc, link, icon: Icon, delay }) => (
 
       <div className="relative z-10 flex-grow">
         <div className="flex items-center gap-4 mb-6">
-          <div className="p-3 bg-black/5 dark:bg-white/5 rounded-xl border border-black/10 dark:border-white/10 text-gray-700 dark:text-gray-300 group-hover:text-indigo-600 dark:group-hover:text-white group-hover:bg-indigo-50 dark:group-hover:bg-[#4F46E5]/20 group-hover:border-indigo-200 dark:group-hover:border-[#4F46E5]/50 transition-all duration-300">
-            <Icon size={24} strokeWidth={1.5} />
+          <div className="w-12 h-12 flex items-center justify-center bg-black/5 dark:bg-white/5 rounded-xl border border-black/10 dark:border-white/10 text-gray-700 dark:text-gray-300 group-hover:text-indigo-600 dark:group-hover:text-white group-hover:bg-indigo-50 dark:group-hover:bg-[#4F46E5]/20 group-hover:border-indigo-200 dark:group-hover:border-[#4F46E5]/50 transition-all duration-300">
+            <img 
+              src={logo} 
+              alt={`${title} Logo`}
+              className="w-full h-full object-contain p-1 rounded-[inherit]"
+            />
           </div>
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white tracking-tight transition-colors">{title}</h3>
         </div>
@@ -245,25 +254,25 @@ export default function App() {
     {
       title: "Traveler Portal",
       desc: "Book trips, manage bookings, payments, QR boarding, wallet, profile, and travel history.",
-      icon: Globe,
+      logo: travelerLogo,
       link: "https://traveloop-v2.vercel.app/"
     },
     {
       title: "Agent Portal",
       desc: "Create and manage trips, itineraries, packages, passengers, pricing, and bookings.",
-      icon: Briefcase,
+      logo: agentLogo,
       link: "https://traveloop-v2-x92b.vercel.app/"
     },
     {
       title: "Driver Portal",
       desc: "Verify passengers using QR codes, manage boarding, attendance, and trip status.",
-      icon: Smartphone,
+      logo: driverLogo,
       link: "https://agent-traveloop.vercel.app/"
     },
     {
       title: "Admin Portal",
       desc: "Manage users, agents, drivers, approvals, analytics, reports, and platform administration.",
-      icon: Shield,
+      logo: adminLogo,
       link: "https://traveloop-v2-yj2k.vercel.app/"
     }
   ];
