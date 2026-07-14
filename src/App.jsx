@@ -321,11 +321,11 @@ export default function App() {
           
           {/* GitHub */}
           <a 
-            href="https://github.com/sanjai0305/travel"
+            href="https://github.com/sanjai0305/traveloop_V2"
             onClick={(e) => {
               e.preventDefault();
               window.open(
-                "https://github.com/sanjai0305/travel",
+                "https://github.com/sanjai0305/traveloop_V2",
                 "_blank",
                 "noopener,noreferrer"
               );
