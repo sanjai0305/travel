@@ -255,25 +255,25 @@ export default function App() {
       title: "Traveler Portal",
       desc: "Book trips, manage bookings, payments, QR boarding, wallet, profile, and travel history.",
       logo: travelerLogo,
-      link: "https://traveloop-v2.vercel.app/"
+      link: "https://traveloop-users.vercel.app/"
     },
     {
       title: "Agent Portal",
       desc: "Create and manage trips, itineraries, packages, passengers, pricing, and bookings.",
       logo: agentLogo,
-      link: "https://traveloop-v2-x92b.vercel.app/"
+      link: "https://trav-agent-portal.vercel.app/"
     },
     {
       title: "Driver Portal",
       desc: "Verify passengers using QR codes, manage boarding, attendance, and trip status.",
       logo: driverLogo,
-      link: "https://agent-traveloop.vercel.app/"
+      link: "https://trav-driver-poratl.vercel.app/"
     },
     {
       title: "Admin Portal",
       desc: "Manage users, agents, drivers, approvals, analytics, reports, and platform administration.",
       logo: adminLogo,
-      link: "https://traveloop-v2-yj2k.vercel.app/"
+      link: "https://admin-traveloop.vercel.app/"
     }
   ];
 
